@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
-print("Hello, World!")
+require "lib/greeter"
+
+print(greeting("World"))
