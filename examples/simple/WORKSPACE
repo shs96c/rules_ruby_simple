@@ -1,4 +1,9 @@
-workspace(name = "rules_ruby")
+workspace(name = "ruby_examples_simple")
+
+local_repository(
+    name = "rules_ruby",
+    path = "../..",
+)
 
 load("@rules_ruby//:repositories.bzl", "ruby_deps")
 

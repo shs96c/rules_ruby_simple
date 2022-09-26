@@ -2,6 +2,7 @@ def _ruby_toolchain_impl(ctx):
     return platform_common.ToolchainInfo(
         interpreter = ctx.executable.interpreter,
         bundle = ctx.executable.bundle,
+        runfiles = ctx.runfiles(ctx.files.interpreter + ctx.files.bundle),
     )
 
 _ruby_toolchain = rule(
