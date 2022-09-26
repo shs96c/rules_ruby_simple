@@ -58,9 +58,8 @@ unset GEM_PATH
 unset GEM_HOME
 
 EXTRA_FLAGS=()
-for PATH in {load_path}; do
-    EXTRA_FLAGS+=("-I${RUNFILES}/{workspace}/${PATH}")
+for LP in {load_path}; do
+    EXTRA_FLAGS+=("-I${RUNFILES}/{workspace}/${LP}")
 done
 
-#echo RUNFILES="${RUNFILES}" "${RUNFILES}/{workspace}/{interpreter}" ${EXTRA_FLAGS[*]} "${RUNFILES}/{workspace}/{bin}" {args}
 "${RUNFILES}/{workspace}/{interpreter}" ${EXTRA_FLAGS[*]} "${RUNFILES}/{workspace}/{bin}" {args}
