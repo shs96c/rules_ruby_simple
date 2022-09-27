@@ -1,0 +1,16 @@
+# Use a hermetic Java 17
+build --java_language_version=17
+build --java_runtime_version=remotejdk_17
+build --tool_java_language_version=17
+build --tool_java_runtime_version=remotejdk_17
+
+# Require java dependencies to be used and first-order
+build --strict_java_deps strict
+
+# Make sure we get something helpful when tests fail
+test --verbose_failures
+test --test_output=errors
+
+# Ensure remote builds are as untainted by env as possible
+build --incompatible_strict_action_env
+

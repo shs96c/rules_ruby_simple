@@ -15,7 +15,7 @@ def _ruby_binary_impl(ctx):
         output = script,
         substitutions = {
             "{workspace}": workspace_name(ctx),
-            "{interpreter}": toolchain.interpreter.path,
+            "{interpreter}": toolchain.interpreter.short_path,
             "{bin}": ctx.file.main.path,
             "{args}": " ".join(ctx.attr.args),
             "{load_path}": " ".join([p for p in sorted(paths.to_list())]),
@@ -28,7 +28,7 @@ def _ruby_binary_impl(ctx):
             executable = script,
             runfiles = ctx.runfiles(
                 transitive_files = depset(transitive = [i.transitive_sources for i in infos]),
-            ).merge(toolchain.runfiles),
+            ).merge(toolchain.interpreter_runfiles),
         ),
     ]
 

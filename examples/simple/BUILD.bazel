@@ -1,4 +1,4 @@
-load("@rules_ruby//ruby:defs.bzl", "ruby_binary")
+load("@rules_ruby//ruby:defs.bzl", "ruby_binary", "ruby_toolchain")
 
 ruby_binary(
     name = "hello",
@@ -6,4 +6,27 @@ ruby_binary(
         "hello.rb",
         "lib/greeter.rb",
     ],
+)
+
+ruby_toolchain(
+    name = "jruby",
+    bundle = ":jruby-bin",
+    interpreter = ":jruby-bin",
+)
+
+java_binary(
+    name = "jruby-bin",
+    args = [
+        "--add-opens java.base/sun.nio.ch=ALL-UNNAMED",
+        "--add-opens java.base/java.io=ALL-UNNAME",
+    ],
+    main_class = "org.jruby.Main",
+    runtime_deps = [
+        ":jruby-jar",
+    ],
+)
+
+java_import(
+    name = "jruby-jar",
+    jars = ["@jruby//file"],
 )

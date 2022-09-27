@@ -1,8 +1,13 @@
 def _ruby_toolchain_impl(ctx):
     return platform_common.ToolchainInfo(
         interpreter = ctx.executable.interpreter,
+        interpreter_runfiles = ctx.runfiles(ctx.files.interpreter).merge(
+            ctx.attr.interpreter[DefaultInfo].default_runfiles,
+        ),
         bundle = ctx.executable.bundle,
-        runfiles = ctx.runfiles(ctx.files.interpreter + ctx.files.bundle),
+        bundle_runfiles = ctx.runfiles(ctx.files.bundle).merge(
+            ctx.attr.bundle[DefaultInfo].default_runfiles,
+        ),
     )
 
 _ruby_toolchain = rule(
@@ -10,13 +15,13 @@ _ruby_toolchain = rule(
     attrs = {
         "interpreter": attr.label(
             doc = "`ruby` binary to execute",
-            allow_single_file = True,
+            allow_files = True,
             executable = True,
             cfg = "exec",
         ),
         "bundle": attr.label(
             doc = "`bundle` to execute",
-            allow_single_file = True,
+            allow_files = True,
             executable = True,
             cfg = "exec",
         ),

@@ -11,4 +11,14 @@ ruby_deps()
 
 load("@rules_ruby//:setup.bzl", "ruby_setup")
 
+#ruby_setup(toolchain = "@//:jruby")
 ruby_setup()
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "jruby",
+    downloaded_file_path = "jruby.jar",
+    sha256 = "b574542f75c71d543ae057a707ca9840e778d62ab6da610e94cd7bbfa5eef5d5",
+    url = "https://repo1.maven.org/maven2/org/jruby/jruby-complete/9.3.8.0/jruby-complete-9.3.8.0.jar",
+)
